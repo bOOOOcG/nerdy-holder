@@ -1,0 +1,36 @@
+[Unit]
+Description=Nerdy Holder Pro - 智能内存管理系统
+After=network.target
+Documentation=https://github.com/your-repo/nerdy-keeper
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/nerdy-holder
+ExecStart=/usr/bin/python3 /opt/nerdy-holder/run_holder.py --fixed-target 80
+
+# 重启策略
+Restart=always
+RestartSec=10
+StartLimitInterval=300
+StartLimitBurst=5
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=nerdy-holder
+
+# 环境变量
+Environment="PYTHONUNBUFFERED=1"
+
+# 安全限制（可选）
+# 如果不需要root权限，可以创建专用用户
+# User=nerdy
+# Group=nerdy
+
+# 资源限制（可选）
+# LimitNOFILE=65535
+# LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
